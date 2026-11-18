@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emma Peinado — Diseñadora gráfica</title>
+<meta name="description" content="Portfolio de Emma Peinado, diseñadora gráfica centrada en identidad visual, desarrollo de packaging y cartelería.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,100..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido principal</a>
+
+<header class="cabecera">
+  <div class="caja cabecera-caja">
+    <a class="logo" href="index.html">
+      <img src="assets/img/ui/logo.png" alt="Emma Peinado, inicio" width="600" height="128">
+    </a>
+    <nav class="menu" aria-label="Navegación principal">
+      <details class="menu-desplegable" id="menu-desplegable">
+        <summary class="menu-titulo">MENÚ<span class="menu-flecha" aria-hidden="true"></span></summary>
+        <ul class="menu-lista">
+          <li><a class="rollover" href="#proyectos"><span class="rollover-recta">Proyectos</span><span class="rollover-cursiva" aria-hidden="true">Proyectos</span></a></li>
+          <li><a class="rollover" href="#sobre-mi"><span class="rollover-recta">Sobre mí</span><span class="rollover-cursiva" aria-hidden="true">Sobre mí</span></a></li>
+          <li><a class="rollover" href="#contacto"><span class="rollover-recta">Contacto</span><span class="rollover-cursiva" aria-hidden="true">Contacto</span></a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="caja">
+      <p class="hero-kicker">DISEÑADORA GRÁFICA</p>
+      <h1 id="hero-titulo">Doy <span class="cursiva">forma visual</span><br>a tus ideas.</h1>
+      <p>
+        Diseñadora gráfica centrada en identidad visual,
+        desarrollo de packaging y cartelería. Cuido cada decisión para
+        que el resultado tenga sentido, funcione y comunique.
+      </p>
+      <a class="boton" href="#contacto">¡Contáctame!</a>
+    </div>
+  </section>
+
+  <!-- ===================== PROYECTOS ===================== -->
+  <section class="proyectos" id="proyectos" aria-labelledby="proyectos-titulo">
+    <h2 class="oculto-visual" id="proyectos-titulo">Proyectos</h2>
+    <div class="carrusel" id="carrusel" tabindex="0" role="group" aria-label="Proyectos">
+      <ul class="carrusel-pista">
+
+        <li class="tarjeta">
+          <a class="tarjeta-foto" href="packaging.html" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/home/card-packaging.jpg"
+                 alt="" loading="lazy">
+          </a>
+          <h3><a href="packaging.html">Rediseño de packaging</a></h3>
+          <ul class="etiquetas">
+            <li>Packaging</li>
+            <li>Rediseño</li>
+          </ul>
+        </li>
+
+        <li class="tarjeta">
+          <a class="tarjeta-foto" href="camins.html" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/home/card-camins.jpg"
+                 alt="" loading="lazy">
+          </a>
+          <h3><a href="camins.html">Camins per recórrer</a></h3>
+          <ul class="etiquetas">
+            <li>Identidad</li>
+            <li>Publicidad</li>
+          </ul>
+        </li>
+
+        <li class="tarjeta">
+          <a class="tarjeta-foto" href="onada.html" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/home/card-onada.jpg"
+                 alt="" loading="lazy">
+          </a>
+          <h3><a href="onada.html">Onada: centro cultural</a></h3>
+          <ul class="etiquetas">
+            <li>Identidad flexible</li>
+            <li>Branding</li>
+          </ul>
+        </li>
+
+        <li class="tarjeta">
+          <span class="tarjeta-foto tarjeta-proceso">
+            <img src="assets/img/home/card-identidad.jpg"
+                 alt="Tarjetas de visita del rediseño de identidad, en azul y granate, flotando sobre fondo gris."
+                 loading="lazy">
+            <span class="proceso" aria-hidden="true">en proceso...</span>
+          </span>
+          <h3>Rediseño de identidad <span class="oculto-visual">(proyecto en proceso)</span></h3>
+          <ul class="etiquetas">
+            <li>Branding</li>
+            <li>Rediseño</li>
+            <li>Submarca</li>
+          </ul>
+        </li>
+
+        <li class="tarjeta">
+          <a class="tarjeta-foto tarjeta-diagonal" href="carteles.html" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/home/card-carteles-a.jpg" alt="" loading="lazy">
+            <img src="assets/img/home/card-carteles-b.jpg" alt="" loading="lazy">
+          </a>
+          <h3><a href="carteles.html">Cartelería</a></h3>
+          <ul class="etiquetas">
+            <li>Cartelería</li>
+            <li>Publicidad</li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <div class="carrusel-flechas">
+      <button type="button" class="carrusel-flecha" id="carrusel-antes" aria-controls="carrusel" aria-label="Ver el proyecto anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M15 4 L7 12 L15 20"/>
+        </svg>
+      </button>
+      <button type="button" class="carrusel-flecha" id="carrusel-despues" aria-controls="carrusel" aria-label="Ver el proyecto siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M9 4 L17 12 L9 20"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE MÍ ===================== -->
+  <section class="sobre" id="sobre-mi" aria-labelledby="sobre-titulo">
+    <div class="caja">
+      <div class="sobre-titular">
+        <h2 id="sobre-titulo">¡Holaa, soy <span class="naranja">Emma!</span></h2>
+        <a class="cv" href="assets/cv/cv-emma-peinado.pdf" download="CV Emma Peinado.pdf"
+           aria-label="Descargar el CV de Emma Peinado en PDF">
+          <span class="cv-texto rollover">
+            <span class="rollover-recta">CV</span>
+            <span class="rollover-cursiva" aria-hidden="true">cv</span>
+          </span>
+          <span class="cv-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path d="M16 8 L8 16"/>
+              <path d="M8 10.5 V16 H13.5"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="sobre-cuerpo">
+        <div class="ficha">
+          <img src="assets/img/home/emma.jpg" width="900" height="1400"
+               alt="Retrato de Emma Peinado en una polaroid." loading="lazy">
+          <p class="ficha-nombre">
+            <strong>emma<br>peinado</strong>
+            <span>Estudiante de diseño gráfico</span>
+          </p>
+          <address class="ficha-contacto">
+            Monóvar, Alicante<br>
+            mail:<a href="mailto:emmapeinado.design@gmail.com">emmapeinado.design@gmail.com</a><br>
+            instagram:<a href="https://www.instagram.com/emmapeinado_design/">@emmapeinado_design</a><br>
+            tel:<a href="tel:+34634681088">+34 634681088</a>
+          </address>
+        </div>
+
+        <div class="bio">
+          <p>
+            Soy estudiante de Diseño Gráfico en la EASD Alcoi y disfruto
+            transformando ideas en propuestas visuales con personalidad.
+          </p>
+          <p>
+            Me interesan especialmente la <b class="n">cartelería</b>, el
+            <b class="n">packaging</b> y la <b class="n">identidad visual</b>.
+            Disfruto probando estilos, combinando recursos y explorando
+            posibilidades hasta encontrar ese punto que hace que un proyecto
+            sea diferente. Me gusta experimentar y descubrir por el camino
+            soluciones que no tenía previstas. Al final, diseñar es eso:
+            probar, jugar y encontrar la manera de contar algo con
+            personalidad.
+          </p>
+
+          <section class="docencia" aria-labelledby="docencia-titulo">
+            <h3 id="docencia-titulo">Docencia</h3>
+            <dl>
+              <div class="docencia-fila">
+                <dt>Grado en Enseñanzas Artísticas Superiores de <span class="naranja">Diseño Gráfico</span></dt>
+                <dd>2023 - Actualidad</dd>
+                <dd>EASD Alcoi</dd>
+              </div>
+              <div class="docencia-fila">
+                <dt>Bachillerato Científico-Tecnológico</dt>
+                <dd>2021-2023</dd>
+                <dd>IES Enric Valor, Monóvar</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== QUÉ HAGO ===================== -->
+  <section class="quehago" aria-labelledby="quehago-titulo">
+    <div class="caja">
+      <h2 id="quehago-titulo">
+        ¿Qué hago?
+        <span class="sub">(y qué me encanta hacer)</span>
+      </h2>
+
+      <!-- Una sola lista, en el orden en que se leen alternando las dos
+           franjas. En pantalla ancha el CSS las reparte en dos filas
+           desplazadas; al estrecharse caen en columna ya en este orden. -->
+      <div class="disciplinas">
+        <ul class="disciplinas-lista">
+          <li class="n">Tipografía</li>
+          <li class="a">Packaging</li>
+          <li class="n">Cartelería</li>
+          <li class="a">Branding</li>
+          <li class="n">Ilustración</li>
+          <li class="a">Dirección creativa</li>
+        </ul>
+      </div>
+
+      <div class="herramientas">
+        <ul class="lista-tools" id="lista-tools">
+          <li>
+            <span class="tool-nombre">Adobe Illustrator</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:80%"></span></span>
+            <span class="tool-nota">4/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Adobe InDesign</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:70%"></span></span>
+            <span class="tool-nota">3,5/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Adobe Photoshop</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:60%"></span></span>
+            <span class="tool-nota">3/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Adobe XD</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:80%"></span></span>
+            <span class="tool-nota">4/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Adobe After Effects</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:70%"></span></span>
+            <span class="tool-nota">3,5/5</span>
+          </li>
+          <li class="hueco" aria-hidden="true"></li>
+          <li>
+            <span class="tool-nombre">Canva</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:70%"></span></span>
+            <span class="tool-nota">3,5/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Procreate</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:80%"></span></span>
+            <span class="tool-nota">4/5</span>
+          </li>
+          <li>
+            <span class="tool-nombre">Figma</span>
+            <span class="tool-barra" aria-hidden="true"><span style="--valor:50%"></span></span>
+            <span class="tool-nota">2,5/5</span>
+          </li>
+        </ul>
+
+        <p class="herramientas-titulo">
+          <span class="uno">Herramientas</span>
+          <span class="dos">que utilizo</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== CONTACTO / PIE ===================== -->
+<footer id="contacto">
+  <div class="caja">
+    <div class="contacto">
+      <p class="contacto-kicker">¡HABLEMOS!</p>
+      <h2>
+        ¿Tienes una idea?
+        <span class="sub">Trabajemos juntos en ella</span>
+      </h2>
+      <ul class="contacto-datos">
+        <li>mail:<a href="mailto:emmapeinado.design@gmail.com">emmapeinado.design@gmail.com</a></li>
+        <li>instagram:<a href="https://www.instagram.com/emmapeinado_design/">@emmapeinado_design</a></li>
+        <li>tel:<a href="tel:+34634681088">+34 634681088</a></li>
+      </ul>
+    </div>
+
+    <div class="legal">
+      <span class="legal-firma">
+        <span class="legal-copy">©Emma Peinado</span>
+        <span class="legal-barra" aria-hidden="true">|</span>
+        <a href="#">Política de privacidad</a>
+      </span>
+      <span class="iconos">
+        <a href="https://www.instagram.com/emmapeinado_design/">
+          <img src="assets/img/ui/icono-instagram.png" alt="Instagram de Emma Peinado" width="96" height="96">
+        </a>
+        <a href="https://www.linkedin.com/in/emma-peinado-gri%C3%B1%C3%A1n-a1b114446/">
+          <img src="assets/img/ui/icono-linkedin.png" alt="LinkedIn de Emma Peinado" width="96" height="96">
+        </a>
+        <a href="mailto:emmapeinado.design@gmail.com">
+          <img src="assets/img/ui/icono-mail.png" alt="Escribir un correo a Emma Peinado" width="96" height="96">
+        </a>
+      </span>
+      <!-- La hora la pone el script con el reloj de quien mira; nace
+           oculta para que sin JavaScript no quede un hueco en blanco. -->
+      <time class="legal-hora" id="reloj" hidden></time>
+    </div>
+  </div>
+</footer>
+
+<!-- Vuelta arriba: nace apagado y lo enciende el script al bajar. -->
+<button type="button" class="arriba" id="arriba" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <path d="M12 19 V6"/>
+    <path d="M5.5 12.5 L12 6 L18.5 12.5"/>
+  </svg>
+</button>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
