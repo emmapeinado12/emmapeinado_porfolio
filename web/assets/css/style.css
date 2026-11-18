@@ -1,0 +1,1171 @@
+/* =========================================================
+   Emma Peinado — portfolio
+   Reconstruido desde los PDF del diseño en InDesign.
+   Paleta y tipografías tomadas del propio documento:
+     azul    #4A509A
+     naranja #ED5C01
+     Archivo SemiExpanded + Instrument Serif Italic
+   ========================================================= */
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, dl, dd {
+  margin: 0; padding: 0;
+}
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+/* ---------- Tokens ---------- */
+:root {
+  --azul:        #4A509A;
+  --azul-oscuro: #3C4185;   /* variante accesible para texto pequeño */
+  /* Un único naranja en toda la web, el de la marca. Antes había una
+     variante oscurecida (#B84500) para el texto pequeño; se ha quitado
+     para que el tono no cambie de un sitio a otro. */
+  --naranja:     #ED5C01;
+  --tinta:       #000000;   /* el texto de las páginas de proyecto */
+  --papel:       #FFFFFF;
+  --hueso:       #F4F1EF;
+  --linea:       #4A509A;
+
+  --sans:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  --margen: clamp(1.25rem, 3.5vw, 4rem);
+  --dur: 220ms;
+  --ease: cubic-bezier(.2, .7, .3, 1);
+}
+
+body {
+  font-family: var(--sans);
+  font-variation-settings: "wdth" 112;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--azul);
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El contenido ocupa todo el ancho de la pantalla, con un margen lateral
+   proporcional. Los párrafos largos llevan su propio max-width para que la
+   línea no se haga ilegible en pantallas anchas. */
+.caja {
+  width: 100%;
+  padding-inline: var(--margen);
+}
+
+/* ---------- Accesibilidad ---------- */
+.saltar {
+  position: absolute; left: 1rem; top: -4rem; z-index: 999;
+  padding: .75rem 1.25rem;
+  background: var(--azul); color: #fff;
+  font-weight: 600; text-decoration: none;
+  transition: top var(--dur) var(--ease);
+}
+.saltar:focus { top: 1rem; }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--naranja);
+  outline-offset: 3px;
+}
+
+.oculto-visual {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+.cabecera {
+  padding: 2.25rem 0 1rem;
+}
+.cabecera-caja {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+/* El logo es una imagen; la altura manda y el ancho se ajusta solo. */
+.logo {
+  display: block;
+  flex: none;
+  line-height: 0;
+  text-decoration: none;
+}
+.logo img {
+  width: auto;
+  height: clamp(1.25rem, 1.9vw, 1.75rem);
+}
+/* ---------- Menú desplegable ----------
+   Montado sobre <details>: abre y cierra sin JavaScript. */
+.cabecera { position: relative; z-index: 50; }
+.menu-desplegable { position: relative; }
+
+.menu-titulo {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.35rem;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;                       /* fuera el triangulito */
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--dur) var(--ease);
+}
+.menu-titulo::-webkit-details-marker { display: none; }
+.menu-titulo::marker { content: ""; }
+/* El rótulo «MENÚ» va entero en lila, flechita incluida: el naranja aquí
+   queda solo para el rollover de las opciones. */
+.menu-titulo:hover,
+.menu-desplegable[open] .menu-titulo { border-bottom-color: var(--azul); }
+
+.menu-flecha {
+  display: block;
+  width: .48rem; height: .48rem;
+  border-right: 2px solid var(--azul);
+  border-bottom: 2px solid var(--azul);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--dur) var(--ease);
+}
+.menu-desplegable[open] .menu-flecha { transform: translateY(2px) rotate(-135deg); }
+
+/* Sin ningún recuadro: al abrir solo aparecen las opciones, alineadas
+   bajo «MENÚ». Fondo transparente, sin borde ni sombra. */
+.menu-lista {
+  position: absolute;
+  top: calc(100% + .7rem);
+  right: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .05rem;
+  min-width: max-content;
+  animation: menuEntra 240ms var(--ease) both;
+}
+@keyframes menuEntra {
+  from { opacity: 0; transform: translateY(-.6rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+.menu-lista li { animation: opcionEntra 300ms var(--ease) both; }
+.menu-lista li:nth-child(1) { animation-delay: 60ms; }
+.menu-lista li:nth-child(2) { animation-delay: 110ms; }
+.menu-lista li:nth-child(3) { animation-delay: 160ms; }
+@keyframes opcionEntra {
+  from { opacity: 0; transform: translateY(-.35rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Rollover de marca ----------
+   De normal, la palabra en Archivo bold y en lila; al pasar por encima,
+   la misma palabra en la cursiva serif y en naranja.
+   Las dos versiones se apilan en la misma celda de una rejilla: la celda
+   mide lo que la más ancha de las dos, así que al cambiar de letra no se
+   mueve nada de sitio. La cursiva va marcada como aria-hidden, de modo
+   que el lector de pantalla lee la palabra una sola vez. */
+.rollover {
+  display: inline-grid;
+  grid-template-areas: "letra";
+  align-items: baseline;
+  justify-items: start;
+}
+.rollover-recta,
+.rollover-cursiva {
+  grid-area: letra;
+  transition: opacity 180ms var(--ease);
+}
+.rollover-recta {
+  font-family: var(--sans);
+  font-style: normal;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  color: var(--azul);
+}
+.rollover-cursiva {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: normal;
+  color: var(--naranja);
+  opacity: 0;
+}
+/* Sirve tanto si el propio enlace es el rollover (menú) como si lo lleva
+   dentro (el cv). */
+a:hover .rollover-recta,
+a:focus-visible .rollover-recta { opacity: 0; }
+a:hover .rollover-cursiva,
+a:focus-visible .rollover-cursiva { opacity: 1; }
+
+.menu-lista a {
+  position: relative;
+  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+  line-height: 1.65;
+  text-decoration: none;
+  justify-items: end;                     /* alineadas bajo «MENÚ» */
+}
+
+/* En las páginas de proyecto las opciones caen sobre la foto de portada.
+   Para que se lean, al abrir el menú se funde un velo blanco que se
+   desvanece hacia abajo: no tiene ningún borde, así que no se ve como un
+   recuadro. En la portada no aparece, porque el fondo ya es claro. */
+body.proyecto:has(.menu-desplegable[open]) .cabecera::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  height: 14rem;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+              var(--papel) 0%, var(--papel) 45%, rgba(255, 255, 255, 0) 100%);
+  animation: menuEntra 240ms var(--ease) both;
+}
+/* El filete va colgado de la cursiva, no del enlace: así mide justo lo que
+   la palabra en cursiva y no se asoma por los lados. Crece desde la
+   derecha. */
+.menu-lista .rollover-cursiva { position: relative; }
+.menu-lista .rollover-cursiva::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: .1em;
+  height: 1px;
+  background: var(--naranja);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--ease);
+}
+.menu-lista a:hover .rollover-cursiva::after,
+.menu-lista a:focus-visible .rollover-cursiva::after { transform: scaleX(1); }
+/* La sección que se está viendo se sigue anunciando al lector de pantalla
+   con aria-current, pero no se marca con color: las tres opciones van en
+   lila y el naranja queda solo para el rollover. */
+
+@media (max-width: 40rem) {
+  .cabecera-caja { align-items: center; }
+}
+
+/* =========================================================
+   PORTADA — HERO
+   ========================================================= */
+.hero { padding: 3.5rem 0 4.5rem; }
+.hero-kicker {
+  color: var(--naranja);
+  font-size: .95rem;
+  font-variation-settings: "wdth" 112, "wght" 600;
+  letter-spacing: .02em;
+  margin-bottom: 1.1rem;
+}
+.hero h1 {
+  font-size: clamp(2.75rem, 1.2rem + 6.2vw, 6rem);
+  line-height: 1.02;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.02em;
+  color: var(--azul);
+  max-width: 18ch;
+}
+.cursiva {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--naranja);
+  letter-spacing: 0;
+}
+/* Cursiva de texto corrido para términos y extranjerismos («flat design»).
+   Archivo no tiene italic de verdad, así que la cursiva sale de la serif de
+   la casa; aquí no se cambia el color, para que no parezca un destacado.
+   La serif pinta más pequeña al mismo cuerpo: se compensa un pelo. */
+.termino {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15em;
+  letter-spacing: 0;
+}
+/* Trozos de texto que no se parten nunca: la preposición baja con su
+   sustantivo en vez de quedarse sola al final de la línea. */
+.junto { white-space: nowrap; }
+.hero p {
+  margin-top: 1.5rem;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+/* Píldora de borde naranja, como el descriptor del diseño. Al pasar por
+   encima se invierte: se rellena de naranja y la letra pasa a blanco. */
+.boton {
+  display: inline-block;
+  margin-top: 1.6rem;
+  padding: .7rem 1.9rem;
+  border: 1.5px solid var(--naranja);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--naranja);
+  font-size: 1.05rem;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  text-decoration: none;
+  transition: background var(--dur) var(--ease),
+              color var(--dur) var(--ease);
+}
+.boton:hover { background: var(--naranja); color: var(--papel); }
+
+/* =========================================================
+   PROYECTOS
+   ========================================================= */
+.proyectos {
+  --alto: clamp(170px, 21vw, 300px);
+  position: relative;
+  padding-bottom: 5rem;
+  /* El carrusel se desplaza por dentro, pero su contenido seguía contando
+     para el ancho de la página y dejaba una barra horizontal a pie de
+     pantalla. «clip» lo corta sin crear otra caja de desplazamiento, así
+     que el carrusel se sigue recorriendo igual. */
+  overflow-x: clip;
+}
+
+/* ---------- Carrusel horizontal a sangre ----------
+   Está quieto: se recorre con las flechas de los laterales. Al llegar al
+   final vuelve a empezar sin costura. La barra se oculta. */
+.carrusel {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;            /* Firefox */
+  -ms-overflow-style: none;         /* Edge antiguo */
+}
+.carrusel::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+.carrusel-pista {
+  display: flex;
+  gap: 1.6rem;
+  width: max-content;
+  padding-inline: var(--margen);
+}
+
+.tarjeta { display: flex; flex-direction: column; flex: none; }
+.tarjeta-foto {
+  display: block;
+  height: var(--alto);
+  aspect-ratio: 16 / 8.6;
+  overflow: hidden;
+  background: var(--hueso);
+}
+.tarjeta-foto img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease);
+}
+a.tarjeta-foto:hover img { transform: scale(1.03); }
+
+/* El rediseño de identidad sigue en marcha y no tiene página todavía: al
+   pasar por encima de la foto se funde un velo con el aviso. En pantallas
+   sin ratón se deja puesto, porque allí no hay manera de pasar por encima;
+   el velo es translúcido, así que la foto se sigue viendo. */
+.tarjeta-proceso { position: relative; }
+.proceso {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .78);
+  color: var(--naranja);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.tarjeta-proceso:hover .proceso { opacity: 1; }
+@media (hover: none) {
+  .proceso { opacity: 1; }
+}
+
+/* Una flecha a cada lado, centradas sobre las imágenes. El contenedor no
+   intercepta el ratón para no estorbar al recorrer la tira a mano. */
+.carrusel-flechas {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(var(--alto) / 2);
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: clamp(.6rem, 1.4vw, 1.4rem);
+  pointer-events: none;
+}
+.carrusel-flecha,
+.galeria-flecha {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: clamp(2.4rem, 3.4vw, 3.2rem);
+  height: clamp(2.4rem, 3.4vw, 3.2rem);
+  border: 0;
+  border-radius: 50%;
+  color: var(--azul);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 6px 18px -8px rgba(20, 18, 16, .45);
+  transition: background var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+.carrusel-flecha svg,
+.galeria-flecha svg { width: 1.1rem; height: 1.1rem; }
+.carrusel-flecha:hover,
+.galeria-flecha:hover {
+  background: var(--naranja);
+  color: var(--papel);
+  transform: scale(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-flecha:hover,
+  .galeria-flecha:hover { transform: none; }
+}
+
+/* tarjeta de Cartelería: dos fotos partidas en diagonal */
+.tarjeta-diagonal { position: relative; }
+.tarjeta-diagonal img { position: absolute; inset: 0; }
+.tarjeta-diagonal img:first-child { clip-path: polygon(0 0, 100% 0, 0 100%); }
+.tarjeta-diagonal img:last-child  { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+
+.tarjeta h3 {
+  margin-top: .7rem;
+  font-size: clamp(1.25rem, .9rem + 1vw, 1.7rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.tarjeta h3 a { text-decoration: none; }
+.tarjeta h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.etiquetas {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin-top: .6rem;
+}
+/* Descriptores: la misma píldora redondeada del botón, en pequeño. */
+.etiquetas li {
+  border: 1px solid var(--naranja);
+  border-radius: 999px;
+  color: var(--naranja);
+  font-size: .85rem;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  padding: .16rem .75rem;
+}
+
+/* =========================================================
+   SOBRE MÍ
+   ========================================================= */
+.sobre { padding: 2rem 0 4rem; }
+.sobre-titular {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--linea);
+}
+.sobre-titular h2 {
+  font-size: clamp(2rem, 1.1rem + 3.2vw, 3.4rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.naranja { color: var(--naranja); }
+/* Enlace al CV: el rótulo con la misma cursiva serif del menú (y el mismo
+   paso a naranja con filete), y el círculo relleno en el lila de marca
+   con la flecha en blanco. */
+.cv {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  flex: none;
+  text-decoration: none;
+}
+/* «CV» en recta y lila; al pasar por encima, «cv» en cursiva naranja.
+   Sin filete, a diferencia del menú. */
+.cv-texto {
+  font-size: clamp(1.55rem, 1.9vw, 2.15rem);
+  line-height: 1.4;
+  letter-spacing: .01em;
+}
+
+.cv-icono {
+  display: grid;
+  place-items: center;
+  width: clamp(2.8rem, 3.2vw, 3.4rem);
+  height: clamp(2.8rem, 3.2vw, 3.4rem);
+  border-radius: 50%;
+  background: var(--azul);
+  color: var(--papel);
+  transition: background var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+.cv-icono svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  transition: transform var(--dur) var(--ease);
+}
+.cv:hover .cv-icono,
+.cv:focus-visible .cv-icono { background: var(--naranja); transform: scale(1.06); }
+.cv:hover .cv-icono svg,
+.cv:focus-visible .cv-icono svg { transform: translate(-2px, 2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cv:hover .cv-icono,
+  .cv:focus-visible .cv-icono { transform: none; }
+  .cv:hover .cv-icono svg,
+  .cv:focus-visible .cv-icono svg { transform: none; }
+}
+
+.sobre-cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+@media (max-width: 54rem) { .sobre-cuerpo { grid-template-columns: 1fr; } }
+
+/* El retrato es la polaroid entera —marco incluido— recortada por el canto
+   mismo de la cartulina: lo que se quita es el blanco de la mesa que había
+   alrededor. Queda en 9:14, la proporción de la cartulina. Como el marco es
+   del mismo blanco que la página, el filo se marca con una línea finísima
+   del lila de marca; si no, la foto se desangraría contra el fondo. */
+.ficha img {
+  width: 100%;
+  max-width: 17rem;
+  aspect-ratio: 9 / 14;
+  object-fit: cover;
+  margin-inline: auto;
+  border: 1px solid rgba(74, 80, 154, .18);
+}
+.ficha-nombre {
+  display: flex; align-items: center; justify-content: center;
+  gap: .9rem;
+  margin-top: 1.4rem;
+}
+.ficha-nombre strong {
+  font-size: 1.7rem;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  line-height: 1.05;
+  text-align: right;
+  letter-spacing: -0.01em;
+}
+.ficha-nombre span {
+  border-left: 1px solid var(--linea);
+  padding-left: .9rem;
+  color: var(--naranja);
+  font-size: 1.1rem;
+  line-height: 1.25;
+  max-width: 10rem;
+}
+.ficha-contacto {
+  margin-top: 1.2rem;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  font-style: normal;
+}
+.ficha-contacto a { color: var(--naranja); text-decoration: none; }
+.ficha-contacto a:hover { text-decoration: underline; }
+
+.bio { border-left: 1px solid var(--linea); padding-left: 2.5rem; }
+@media (max-width: 54rem) { .bio { border-left: 0; padding-left: 0; } }
+.bio p { font-size: 1.2rem; line-height: 1.5; max-width: 78ch; }
+.bio p + p { margin-top: 1rem; }
+.bio b { font-variation-settings: "wdth" 112, "wght" 700; }
+.bio .n { color: var(--naranja); }
+.bio .a { color: var(--azul); }
+
+.docencia { margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid var(--linea); }
+.docencia h3 {
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  margin-bottom: .8rem;
+  letter-spacing: -0.01em;
+}
+.docencia-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: .5rem 1.5rem;
+  padding: .55rem 0;
+  font-size: 1.2rem;        /* el mismo cuerpo que la biografía */
+}
+@media (max-width: 44rem) { .docencia-fila { grid-template-columns: 1fr; gap: .1rem; } }
+.docencia-fila dt {
+  font-variation-settings: "wdth" 112, "wght" 700;
+  line-height: 1.2;
+}
+.docencia-fila dd { line-height: 1.2; }
+
+/* =========================================================
+   QUÉ HAGO
+   ========================================================= */
+.quehago { padding: 3rem 0 2rem; }
+.quehago h2 {
+  font-size: clamp(2.2rem, 1.1rem + 4vw, 4rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  color: var(--naranja);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.quehago h2 .sub {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: .72em;
+  color: var(--azul);
+  letter-spacing: 0;
+  margin-top: .1em;
+}
+
+/* Dos franjas que reparten las disciplinas a lo ancho de toda la pantalla,
+   desplazadas entre sí para conservar el aire de la maqueta. */
+.disciplinas {
+  --corre: clamp(1rem, 5vw, 7rem);
+  margin: 3.5rem 0 4rem;
+  font-size: clamp(1.15rem, .7rem + 1.5vw, 2.1rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+}
+/* Las seis palabras van en una sola lista, alternando naranja y lila. En
+   pantalla ancha se reparten en dos filas de una rejilla de seis columnas:
+   la de abajo (lila) con los centros en 1/6, 3/6 y 5/6, y la de arriba
+   (naranja) desplazada media columna, de modo que cada palabra cae justo
+   en el hueco entre dos de la de abajo: «Tipografía» entre «Packaging» y
+   «Branding», y «Cartelería» entre «Branding» y «Dirección creativa».
+   La última de arriba cierra pegada al borde derecho. */
+.disciplinas-lista {
+  display: grid;
+  /* minmax(0, 1fr): las seis columnas miden exactamente lo mismo aunque
+     una palabra sea más ancha que su celda. */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  /* Las palabras van centradas en su celda, así que la primera arrancaba
+     bastante por dentro del margen mientras la última llegaba al borde:
+     el bloque se veía escorado. Se corre entero hacia la izquierda (el
+     mismo valor que se quita por un lado se añade por el otro, así que
+     la rejilla no cambia de tamaño y el cuadre entre las dos filas se
+     mantiene) hasta dejar un aire parecido a cada lado. */
+  margin-left: calc(-1 * var(--corre, 0px));
+  margin-right: var(--corre, 0px);
+  align-items: baseline;
+  gap: 1.1rem 0;           /* sin hueco entre columnas: así los centros
+                              caen exactamente a medio camino */
+}
+.disciplinas li { line-height: 1.2; text-align: center; }
+
+/* Impares: la franja de arriba, naranja, media columna corrida. */
+.disciplinas-lista li:nth-child(1) { grid-row: 1; grid-column: 2 / 4; }
+.disciplinas-lista li:nth-child(3) { grid-row: 1; grid-column: 4 / 6; }
+/* «Ilustración» cierra la franja de arriba pegada al borde. La rejilla
+   entera va corrida hacia la izquierda (--corre), así que esta palabra se
+   devuelve a la derecha ese mismo valor: queda al filo del margen y deja de
+   caer encima de «Dirección creativa», que va justo debajo. */
+.disciplinas-lista li:nth-child(5) {
+  grid-row: 1;
+  grid-column: 6 / 7;
+  justify-self: end;
+  margin-right: calc(-1 * var(--corre, 0px));
+  white-space: nowrap;
+}
+/* Pares: la franja de abajo, lila. */
+.disciplinas-lista li:nth-child(2) { grid-row: 2; grid-column: 1 / 3; }
+.disciplinas-lista li:nth-child(4) { grid-row: 2; grid-column: 3 / 5; }
+.disciplinas-lista li:nth-child(6) {
+  grid-row: 2;
+  grid-column: 5 / 7;
+  /* «Dirección creativa» va siempre partida en dos líneas, centrada en su
+     celda: en pantallas anchas le cabía de sobra en una y rompía el ritmo
+     de la franja. El ancho se estrecha solo lo justo para que no quepan
+     las dos palabras seguidas. */
+  max-width: 12ch;
+  margin-inline: auto;
+}
+
+.disciplinas .n { color: var(--naranja); }
+.disciplinas .a { color: var(--azul); }
+
+/* En pantallas estrechas no hay sitio para el desplazamiento: las seis
+   caen en columna, una por línea, alternando naranja y lila en el orden
+   en que ya están escritas. */
+@media (max-width: 60rem) {
+  .disciplinas { --corre: 0px; }
+  .disciplinas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin: 0;
+  }
+  .disciplinas li { text-align: left; white-space: normal; }
+  /* En columna «Dirección creativa» va en una sola línea: aquí no hay
+     franja con la que cuadrar. Mismo peso de selector que el de arriba
+     para poder deshacer el ancho. */
+  .disciplinas-lista li:nth-child(6) { max-width: none; margin-inline: 0; }
+}
+
+/* ---------- Herramientas ---------- */
+.herramientas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--linea);
+}
+/* Apilado, el rótulo «Herramientas que utilizo» sube y sale justo debajo
+   de la raya, antes de la lista. En el HTML sigue yendo después, así que
+   solo cambia el orden en pantalla. */
+@media (max-width: 54rem) {
+  .herramientas { grid-template-columns: 1fr; gap: 1.2rem; }
+  .herramientas-titulo { order: -1; }
+}
+
+/* Cada herramienta con su barra de progreso proporcional a la nota. */
+.lista-tools { max-width: 58rem; }
+.lista-tools li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr) 3.8rem;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: clamp(1rem, .85rem + .5vw, 1.3rem);
+  padding: .45rem 0;
+}
+.lista-tools .hueco { display: block; height: 1rem; padding: 0; }
+
+.tool-nombre { line-height: 1.2; }
+.tool-nota {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-variation-settings: "wdth" 112, "wght" 600;
+}
+
+.tool-barra {
+  height: .6rem;
+  border-radius: 99px;
+  background: #E4E3EF;
+  background: color-mix(in srgb, var(--azul) 15%, transparent);
+  overflow: hidden;
+}
+.tool-barra > span {
+  display: block;
+  height: 100%;
+  width: var(--valor, 0%);
+  border-radius: 99px;
+  background: var(--azul);
+  transition: width 900ms var(--ease), background var(--dur) var(--ease);
+}
+.lista-tools li:hover .tool-barra > span { background: var(--naranja); }
+
+/* Relleno progresivo al entrar en pantalla (solo lo activa el JS; sin él las
+   barras ya salen con su valor). */
+.lista-tools.con-animacion .tool-barra > span { width: 0; }
+.lista-tools.con-animacion.visible .tool-barra > span { width: var(--valor, 0%); }
+
+/* Apilado: nombre, barra y nota, cada uno en su línea y a todo el ancho.
+   La nota va pegada al borde derecho, justo donde termina la línea gris
+   de la barra. */
+@media (max-width: 34rem) {
+  .lista-tools li { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
+  .tool-barra,
+  .tool-nota { grid-column: 1 / -1; }
+}
+
+.herramientas-titulo {
+  text-align: right;
+  line-height: 1.02;
+}
+@media (max-width: 54rem) { .herramientas-titulo { text-align: left; } }
+.herramientas-titulo .uno {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.8rem, 1rem + 2.6vw, 3rem);
+  color: var(--azul);
+}
+.herramientas-titulo .dos {
+  display: block;
+  font-size: clamp(2rem, 1.1rem + 3.2vw, 3.4rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  color: var(--naranja);
+  letter-spacing: -0.02em;
+}
+
+/* =========================================================
+   PIE
+   ========================================================= */
+/* La pastilla sale de la caja para llegar a los dos bordes de la pantalla;
+   el texto de dentro se queda alineado con el del resto de la página. */
+.contacto {
+  background: var(--azul);
+  color: #fff;
+  margin-top: 3.5rem;
+  margin-inline: calc(var(--margen) * -1);
+  padding: 2.5rem var(--margen) 4rem;
+}
+@media (max-width: 40rem) { .contacto { padding-block: 2rem 2.5rem; } }
+.contacto-kicker {
+  font-size: .85rem;
+  font-variation-settings: "wdth" 112, "wght" 500;
+  letter-spacing: .06em;
+  margin-bottom: .6rem;
+}
+.contacto h2 {
+  font-size: clamp(2.2rem, 1.2rem + 4vw, 4rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.contacto h2 .sub {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: .9em;
+  letter-spacing: 0;
+  margin-top: .05em;
+}
+.contacto-datos { margin-top: 2rem; font-size: 1rem; line-height: 1.5; }
+.contacto-datos li + li { margin-top: .9rem; }
+.contacto-datos a {
+  color: #fff;
+  font-variation-settings: "wdth" 112, "wght" 700;
+  text-decoration: none;
+}
+.contacto-datos a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* El hueco de abajo es más grande de lo que pide el diseño a propósito: el
+   botón de volver arriba vive fijo en esa esquina y, al llegar al final de
+   la página, se comía la línea legal. Con este aire queda siempre por
+   encima del botón, en ancho y en estrecho. */
+/* Rejilla de tres y no un «space-between»: así los iconos caen en el centro
+   exacto de la página, y no en el punto medio entre la firma y la hora, que
+   miden distinto. Las columnas de los lados pesan igual (1fr) aunque una
+   vaya vacía, que es lo que pasa sin JavaScript. */
+.legal {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 1.1rem 0 6rem;
+  font-size: .95rem;
+}
+/* «©Emma Peinado | Política de privacidad» se lee como una sola firma: la
+   barra separa pero no se anuncia, y al estrecharse el conjunto puede caer
+   en dos líneas sin que el © se quede suelto. */
+.legal-firma {
+  display: inline-flex; flex-wrap: wrap;
+  align-items: baseline; gap: .5rem;
+}
+.legal-barra { opacity: .5; }
+/* La hora cambia cada segundo: en cifras de ancho fijo, para que al pasar
+   de un 1 a un 8 no baile toda la línea. */
+.legal-hora {
+  justify-self: end;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+/* En estrecho no caben tres columnas: la firma se queda a la izquierda, la
+   hora a la derecha y los iconos pasan debajo, centrados entre las dos. */
+@media (max-width: 34rem) {
+  .legal {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+  .legal .iconos { grid-row: 2; grid-column: 1 / -1; justify-content: center; }
+}
+.legal a { text-decoration: none; }
+.legal a:hover { text-decoration: underline; }
+.legal .iconos { display: flex; align-items: center; gap: 1.4rem; }
+.legal .iconos a {
+  display: block;
+  line-height: 0;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.legal .iconos img { width: 1.9rem; height: 1.9rem; }
+.legal .iconos a:hover { transform: scale(1.12); opacity: .8; }
+@media (prefers-reduced-motion: reduce) {
+  .legal .iconos a:hover { transform: none; }
+}
+
+/* =========================================================
+   PÁGINAS DE PROYECTO
+   ========================================================= */
+/* El contenido de las páginas de proyecto va en negro, como en la maqueta.
+   Se aplica a <main> y no a <body> para que la cabecera siga en lila. */
+.proyecto main { color: var(--tinta); }
+.proyecto .portada {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: var(--hueso);
+}
+@media (max-width: 44rem) {
+  .proyecto .portada { aspect-ratio: 4 / 3; }
+}
+.proyecto .ficha-tecnica {
+  padding: 1.6rem 0 2.5rem;
+  max-width: 42ch;
+}
+.proyecto .ficha-tecnica dt {
+  font-variation-settings: "wdth" 112, "wght" 700;
+}
+.proyecto .ficha-tecnica .rotulo { font-variation-settings: "wdth" 112, "wght" 400; }
+
+.bloque { margin-bottom: 2rem; }
+.dos-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  align-items: start;
+}
+.dos-col--izq { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); }
+.dos-col--der { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+@media (max-width: 48rem) {
+  .dos-col, .dos-col--izq, .dos-col--der { grid-template-columns: 1fr; }
+}
+
+/* Dos columnas independientes: cada una apila sus figuras por su cuenta,
+   de modo que no quedan alineadas por filas (como en la maqueta). */
+.dos-pilas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  align-items: start;
+}
+.dos-pilas--der { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.dos-pilas--izq { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); }
+.pila { display: flex; flex-direction: column; gap: 1.6rem; }
+@media (max-width: 48rem) {
+  .dos-pilas, .dos-pilas--der, .dos-pilas--izq { grid-template-columns: 1fr; }
+}
+
+/* Todos los textos de las páginas de proyecto van al mismo cuerpo,
+   1,35 rem: el corrido, los pies de foto, los rótulos de sección y las
+   fichas técnicas. Es bastante más que en la maqueta, donde a 1 rem se
+   quedaban cortos en pantalla. Lo único que va aparte son los titulares. */
+.proyecto p.texto,
+.proyecto .pie,
+.proyecto .seccion-rotulo,
+.proyecto .ficha-tecnica {
+  font-size: 1.35rem;
+  line-height: 1.45;
+}
+.proyecto p.texto { max-width: 42ch; }
+.proyecto .pie {
+  margin-top: .5rem;
+  max-width: 42ch;
+}
+
+.proyecto figure { margin: 0; }
+.proyecto figure img { width: 100%; }
+.foto-4-3   { aspect-ratio: 4 / 3;   object-fit: cover; }
+.foto-3-2   { aspect-ratio: 3 / 2;   object-fit: cover; }
+.foto-16-9  { aspect-ratio: 16 / 9;  object-fit: cover; }
+.foto-1-1   { aspect-ratio: 1;       object-fit: cover; }
+.foto-alta  { aspect-ratio: 3 / 4;   object-fit: cover; }
+.foto-libre { object-fit: contain; }
+
+.titular-proyecto {
+  text-align: right;
+  font-size: clamp(2.5rem, 1rem + 7vw, 7rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.035em;
+  line-height: .95;
+  color: var(--tinta);
+  margin: 1rem 0 .5rem;
+}
+.subtitular-proyecto {
+  text-align: right;
+  font-size: clamp(1rem, .6rem + 1.5vw, 1.9rem);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+}
+
+/* El eslogan dentro del texto corrido. Iba en cursiva, pero Archivo no tiene
+   itálica y el navegador la inclinaba a la fuerza: parecía otra tipografía.
+   Se destaca con el peso, que sí está en la familia. */
+.lema { font-variation-settings: "wdth" 112, "wght" 600; }
+
+.seccion-rotulo {
+  font-variation-settings: "wdth" 112, "wght" 400;
+  margin: .5rem 0 1rem;
+}
+
+/* Al pie de cada proyecto: a la izquierda se vuelve a la portada, a la
+   derecha se pasa al siguiente. Desde el último se vuelve al primero, así
+   que se pueden ver los cuatro seguidos sin pasar por la portada. */
+.paso-proyectos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin: 3rem 0 1rem;
+}
+.volver,
+.siguiente {
+  display: inline-block;
+  font-variation-settings: "wdth" 112, "wght" 600;
+  color: var(--azul);
+  text-decoration: none;
+  border-bottom: 2px solid var(--naranja);
+  padding-bottom: .1rem;
+  transition: color var(--dur) var(--ease);
+}
+.volver:hover,
+.siguiente:hover { color: var(--naranja); }
+
+/* Columna de texto alineada al pie de la foto de al lado, en vez de a su
+   borde de arriba. */
+.al-pie { align-items: end; }
+
+/* La primera línea de un párrafo no empieza en el borde de su caja: por
+   encima queda la mitad del interlineado. Esto lo descuenta, de modo que
+   el texto arranca a la misma altura exacta que la foto de al lado. */
+.al-filo { margin-top: calc((1 - 1.45) * .5em); }
+
+/* Ficha técnica arriba y texto descriptivo abajo, cuadrados con los dos
+   bordes de la foto de al lado. La columna se estira hasta la altura de la
+   foto y reparte el aire entre los dos bloques; la ficha pierde su padding
+   para arrancar justo al filo. */
+.ficha-foto { align-items: stretch; }
+.ficha-foto .columna-ficha {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.ficha-foto .ficha-tecnica { padding: 0; }
+/* Apilado en pantallas estrechas ya no hay foto al lado con la que cuadrar. */
+@media (max-width: 48rem) {
+  .ficha-foto .columna-ficha { gap: 1.6rem; }
+  .ficha-foto .ficha-tecnica { margin-top: 1.6rem; }
+}
+
+/* Los GIF de banner vienen a 300 px: a todo el ancho de la columna se ven
+   desproporcionados al lado del alargado. */
+.proyecto figure img.mitad { width: 50%; }
+@media (max-width: 48rem) {
+  .proyecto figure img.mitad { width: 70%; }
+}
+
+/* =========================================================
+   GALERÍA
+   Una imagen a la vez; con la flecha de la derecha van pasando y al
+   llegar a la última se vuelve a la primera. Sin JavaScript sigue
+   siendo una tira que se recorre a mano.
+   ========================================================= */
+.galeria { position: relative; }
+.galeria-pista {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.galeria-pista::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.galeria-pista > li {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+/* Los mockups vienen en 4:3 con bastante aire arriba y abajo. A 16:9 y a
+   todo el ancho, el libro se ve grande y la galería no se come la
+   pantalla de alto. */
+.galeria-pista img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--hueso);
+}
+@media (max-width: 48rem) {
+  .galeria-pista img { aspect-ratio: 4 / 3; }
+}
+/* Dentro de una columna de un bloque a dos: la galería ocupa exactamente el
+   hueco que tendría una foto 4:3, de modo que cuadra con el texto de al lado. */
+.galeria--col .galeria-pista img { aspect-ratio: 4 / 3; }
+/* El redondel, el tamaño y el paso a naranja los comparte con las flechas
+   del carrusel de la portada; aquí solo se colocan, una a cada lado y
+   centradas sobre la imagen: con la izquierda se retrocede. */
+.galeria-flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+.galeria-flecha--antes   { left:  clamp(.6rem, 1.4vw, 1.4rem); }
+.galeria-flecha--despues { right: clamp(.6rem, 1.4vw, 1.4rem); }
+.galeria-flecha:hover { transform: translateY(-50%) scale(1.08); }
+@media (prefers-reduced-motion: reduce) {
+  .galeria-flecha:hover { transform: translateY(-50%); }
+}
+.galeria-cuenta {
+  margin-top: .6rem;
+  text-align: right;
+  font-size: .95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   VOLVER ARRIBA
+   Redondel del lila de marca con la flecha en blanco, abajo a
+   la derecha. Nace apagado y lo enciende el script en cuanto
+   se ha bajado casi una pantalla; sin JavaScript no estorba
+   porque nunca llega a verse.
+   ========================================================= */
+.arriba {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2.25rem);
+  bottom: clamp(1rem, 2.5vw, 2.25rem);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: clamp(2.8rem, 3.6vw, 3.4rem);
+  height: clamp(2.8rem, 3.6vw, 3.4rem);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--azul);
+  color: var(--papel);
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(20, 18, 16, .55);
+  /* visibility, y no solo opacity: apagado no se puede pulsar ni se
+     alcanza con el tabulador. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(.5rem);
+  transition: opacity var(--dur) var(--ease),
+              transform var(--dur) var(--ease),
+              visibility var(--dur) var(--ease),
+              background var(--dur) var(--ease);
+}
+.arriba svg { width: 1.25rem; height: 1.25rem; }
+.arriba.visible { opacity: 1; visibility: visible; transform: none; }
+/* El hover tiene que pesar más que .visible para poder mover el botón. */
+.arriba.visible:hover,
+.arriba.visible:focus-visible { background: var(--naranja); transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) {
+  .arriba.visible:hover,
+  .arriba.visible:focus-visible { transform: none; }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  a.tarjeta-foto:hover img { transform: none; }
+}
+
+/* ---------- Impresión ---------- */
+@media print {
+  .cabecera, .saltar, .volver, .arriba { display: none !important; }
+  body { color: #000; background: #fff; }
+  .contacto { background: #fff; color: #000; }
+}
